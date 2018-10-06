@@ -1,0 +1,14 @@
+@import './modules/colors';
+
+.bill-item {
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 360px) {
+  .bill-item {
+    display: block;
+  }
+}
