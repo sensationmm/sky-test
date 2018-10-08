@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import Bill from '../components/Bill';
 
 const Home = (props) => {
-  const { bill } = props;
+  const { bill, isLoading } = props;
 
   return (
     <div className="table">
 
-      <Bill bill={bill} />
+      <Bill bill={bill} isLoading={isLoading} />
     </div>
   );
 }
@@ -20,7 +20,8 @@ Home.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  bill: state.bill
+  bill: state.bill,
+  isLoading: state.loader.isLoading
 });
 
 export default connect(mapStateToProps)(Home);

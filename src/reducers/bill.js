@@ -1,5 +1,5 @@
 import {
-  GET_BILL
+  GET_BILL_SUCCESS
 } from '../config/constants';
 
 const initialState = {
@@ -29,7 +29,7 @@ const initialState = {
 
 export const bill = (state = initialState, action) => {
   switch (action.type) {
-    case GET_BILL: {
+    case GET_BILL_SUCCESS: {
       const { bill } = action;
 
       const billObject = JSON.parse(bill);

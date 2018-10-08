@@ -6,6 +6,7 @@ import BillItem from './BillItem';
 import BillSection from './BillSection';
 import BillSectionContent from './BillSectionContent';
 import SkyLogo from '../images/sky-logo.png';
+import Loader from './Loader';
 
 import '../styles/css/bill.css';
 
@@ -20,7 +21,7 @@ class Bill extends Component {
 
   render() {
     const { formatDate, formatCurrency, props } = this;
-    const { bill } = props;
+    const { bill, isLoading } = props;
 
     if(!bill) {
       return null;
@@ -33,66 +34,73 @@ class Bill extends Component {
           <h1>Your Bill</h1>
         </div>
 
-        <BillSection>
-          <BillItem title="Bill Total" value={formatCurrency(bill.total)} />
-        </BillSection>
+        {isLoading && <Loader />}
 
-        <BillSection>
-          <BillItem title="Bill date" value={formatDate(bill.statement.generated)} />
-          <BillItem title="Bill period" value={
-            `${formatDate(bill.statement.period.from)} - ${formatDate(bill.statement.period.to)}`
-          } />
-          <BillItem title="Due date" value={formatDate(bill.statement.due)} />
-        </BillSection>
+        {!isLoading &&
+          <div>
+            <BillSection>
+              <BillItem title="Bill Total" value={formatCurrency(bill.total)} />
+            </BillSection>
 
-        <BillSection>
-          <BillItem title="Subscriptions" value={formatCurrency(bill.package.total)} />
-          <BillSectionContent>
-          {
-            bill.package.subscriptions.map((item, count) => {
-              const title = `${item.name} (${item.type})`;
-              return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
-            })
-          }
-          </BillSectionContent>
-        </BillSection>
+            <BillSection>
+              <BillItem title="Bill date" value={formatDate(bill.statement.generated)} />
+              <BillItem title="Bill period" value={
+                `${formatDate(bill.statement.period.from)} - ${formatDate(bill.statement.period.to)}`
+              } />
+              <BillItem title="Due date" value={formatDate(bill.statement.due)} />
+            </BillSection>
 
-        <BillSection>
-          <BillItem title="Call Charges" value={formatCurrency(bill.callCharges.total)} />
-          <BillSectionContent>
-          {
-            bill.callCharges.calls.map((item, count) => {
-              const title = `${item.called} (${item.duration})`;
-              return <BillItem key={`call-${count}`} title={title} value={formatCurrency(item.cost)} />
-            })
-          }
-          </BillSectionContent>
-        </BillSection>
+            <BillSection>
+              <BillItem title="Subscriptions" value={formatCurrency(bill.package.total)} />
+              <BillSectionContent>
+              {
+                bill.package.subscriptions.map((item, count) => {
+                  const title = `${item.name} (${item.type})`;
+                  return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
+                })
+              }
+              </BillSectionContent>
+            </BillSection>
 
-        <BillSection>
-          <BillItem title="Sky Store" value={formatCurrency(bill.skyStore.total)} />
-          <BillSectionContent>
-          {
-            bill.skyStore.rentals.map((item, count) => {
-              const title = `Rental: ${item.title}`;
-              return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
-            })
-          }
-          {
-            bill.skyStore.buyAndKeep.map((item, count) => {
-              const title = `Purchase: ${item.title}`;
-              return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
-            })
-          }
-          </BillSectionContent>
-        </BillSection>
+            <BillSection>
+              <BillItem title="Call Charges" value={formatCurrency(bill.callCharges.total)} />
+              <BillSectionContent>
+              {
+                bill.callCharges.calls.map((item, count) => {
+                  const title = `${item.called} (${item.duration})`;
+                  return <BillItem key={`call-${count}`} title={title} value={formatCurrency(item.cost)} />
+                })
+              }
+              </BillSectionContent>
+            </BillSection>
+
+            <BillSection>
+              <BillItem title="Sky Store" value={formatCurrency(bill.skyStore.total)} />
+              <BillSectionContent>
+              {
+                bill.skyStore.rentals.map((item, count) => {
+                  const title = `Rental: ${item.title}`;
+                  return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
+                })
+              }
+              {
+                bill.skyStore.buyAndKeep.map((item, count) => {
+                  const title = `Purchase: ${item.title}`;
+                  return <BillItem key={`subs-${count}`} title={title} value={formatCurrency(item.cost)} />
+                })
+              }
+              </BillSectionContent>
+            </BillSection>
+          </div>
+        }
       </div>
     );
   }
 }
 
 Bill.propTypes = {
-  bill: PropTypes.object
+  bill: PropTypes.object,
+  isLoading: PropTypes.bool
 };
 
 export default Bill;
