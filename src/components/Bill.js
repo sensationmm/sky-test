@@ -10,10 +10,6 @@ import SkyLogo from '../images/sky-logo.png';
 import '../styles/css/bill.css';
 
 class Bill extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   formatDate = (date) => {
     return moment(date).format('Do MMM YYYY');
   }
