@@ -2,22 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import SkyLogo from '../images/sky-logo.png';
 import BillItem from './BillItem';
 import BillSection from './BillSection';
 import BillSectionContent from './BillSectionContent';
+import SkyLogo from '../images/sky-logo.png';
 
 import '../styles/css/bill.css';
 
-/**
-* Bill
-*
-* Renders bill information
-*
-* @param {object} bill - the details of the bill
-*/
-
 class Bill extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   formatDate = (date) => {
     return moment(date).format('Do MMM YYYY');

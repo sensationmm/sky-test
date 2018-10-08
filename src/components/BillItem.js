@@ -24,8 +24,8 @@ const BillItem = (props) => {
 }
 
 BillItem.propTypes = {
-  title: PropTypes.string,
-  value: PropTypes.string
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default BillItem;
